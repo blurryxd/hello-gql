@@ -108,7 +108,30 @@ const RootQuery = new GraphQLObjectType({
     },
 });
 
+const Mutation = new GraphQLObjectType({
+    name: 'MutationType',
+    description: 'Mutations...',
+    fields: {
+        addCategory: {
+            type: categoryType,
+            description: 'Add animal category like Fish, Mammal, etc.',
+            args: {
+                categoryName: {type: new GraphQLNonNull(GraphQLString)}, // add necessary imports
+            },
+            resolve(parent, args) {
+                const newCategory = new category({
+                    categoryName: args.categoryName,
+                });
+                return newCategory.save();
+            },
+        },
+    },
+});
+
+
+
 
 module.exports = new GraphQLSchema({
     query: RootQuery,
+    mutation: Mutation,
 });
