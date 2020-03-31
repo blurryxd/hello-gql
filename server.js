@@ -8,6 +8,13 @@ const graphqlHTTP = require('express-graphql');
 const MyGraphQLSchema = require('./schema/schema');
 const port = 3000;
 const app = express();
+const cors = require('cors');
+const authRoute = require('./routes/authRoute');
+const passport = require('./utils/pass');
+
+app.use(cors());
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
 
 
 // dummy function to set user (irl: e.g. passport-local)
@@ -23,7 +30,9 @@ const checkAuth = (req, res) => {
         throw new Error('Not authenticated');
 };
 
-app.use(auth);
+app.post(auth);
+app.use('/auth', authRoute);
+
 
 app.use(
     '/graphql', (req, res) => {
