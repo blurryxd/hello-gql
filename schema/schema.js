@@ -10,6 +10,8 @@ const {GraphQLObjectType,
 } = require(
     'graphql');
 
+const category = require('../models/categorySchema');
+
 const animalData = [
     {
         id: '1',
@@ -116,7 +118,7 @@ const Mutation = new GraphQLObjectType({
             type: categoryType,
             description: 'Add animal category like Fish, Mammal, etc.',
             args: {
-                categoryName: {type: new GraphQLNonNull(GraphQLString)}, // add necessary imports
+                categoryName: {type: new GraphQLNonNull(GraphQLString)},
             },
             resolve(parent, args) {
                 const newCategory = new category({

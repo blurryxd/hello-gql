@@ -4,9 +4,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const animalSchema = new Schema({
-    id: String,
     animalName: String,
-    species: [{type: Schema.Types.ObjectID, ref: 'Species'}],
+    species: [{type: mongoose.Types.ObjectId, ref: 'Species'}],
 });
 
 module.exports = mongoose.model('Animal', animalSchema);
